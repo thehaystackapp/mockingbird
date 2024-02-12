@@ -36,7 +36,7 @@ jobs:
     - name: Test
       env:
         GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-        DEVELOPER_DIR: /Applications/Xcode_13.2.app/Contents/Developer
+        DEVELOPER_DIR: /Applications/Xcode_15.2.app/Contents/Developer
       run: Sources/MockingbirdAutomationCli/buildAndRun.sh test example ${{ matrix.type }}
 
   test-cli-launcher:
