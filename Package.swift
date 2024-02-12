@@ -56,7 +56,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
     dependencies: [
       .package(url: "https://github.com/apple/swift-argument-parser.git", .exact("1.0.2")),
       .package(url: "https://github.com/kylef/PathKit.git", .exact("1.0.1")),
-      .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", .exact("0.50500.0")),
+      .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", .exact("509.1.1")),
       .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.0")),
       .package(url: "https://github.com/tuist/XcodeProj.git", .exact("8.18.0")),
       .package(url: "https://github.com/weichsel/ZIPFoundation.git", .exact("0.9.14")),
@@ -81,7 +81,8 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
         dependencies: [
           .product(name: "SourceKittenFramework", package: "SourceKitten"),
           "MockingbirdCommon",
-          "SwiftSyntax",
+          .product(name: "SwiftSyntax", package: "SwiftSyntax"),
+          .product(name: "SwiftParser", package: "SwiftSyntax"),
           "XcodeProj",
         ]),
       .target(

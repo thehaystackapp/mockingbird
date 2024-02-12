@@ -5,12 +5,13 @@ on: [push, pull_request]
 jobs:
   test-e2e:
     name: Test E2E (Xcode ${{ matrix.xcode }})
-    runs-on: macOS-latest
+    runs-on: macos-14
     strategy:
       matrix:
         xcode:
-        - '13.1' # Swift 5.5
-        - '13.2' # Swift 5.5.2
+        # - '13.1' # Swift 5.5
+        # - '13.2' # Swift 5.5.2
+        - '15.2' # Swift 5.9.2
     steps:
     - uses: actions/checkout@v2
     - name: Set Up Project
@@ -22,7 +23,7 @@ jobs:
 
   test-example-project:
     name: Test Example Project (${{ matrix.type }})
-    runs-on: macOS-latest
+    runs-on: macos-14
     strategy:
       matrix:
         type:
@@ -40,7 +41,7 @@ jobs:
 
   test-cli-launcher:
     name: Test CLI Launcher
-    runs-on: macOS-latest
+    runs-on: macos-14
     steps:
     - uses: actions/checkout@v2
     - name: Test
@@ -51,7 +52,7 @@ jobs:
 
   build-cocoapods:
     name: Build CocoaPods
-    runs-on: macOS-latest
+    runs-on: macos-14
     steps:
     - uses: actions/checkout@v2
     - name: Build
@@ -61,7 +62,7 @@ jobs:
 
   build-carthage:
     name: Build Carthage
-    runs-on: macOS-latest
+    runs-on: macos-14
     steps:
     - uses: actions/checkout@v2
     - name: Set Up Project
@@ -71,7 +72,7 @@ jobs:
 
   build-swiftpm:
     name: Build SwiftPM
-    runs-on: macOS-latest
+    runs-on: macos-14
     steps:
     - uses: actions/checkout@v2
     - name: Build Debug
