@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.7
 import PackageDescription
 import class Foundation.ProcessInfo
 
@@ -11,9 +11,9 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
   package = Package(
     name: "Mockingbird",
     platforms: [
-      .macOS(.v10_10),
-      .iOS(.v9),
-      .tvOS(.v9),
+      .macOS(.v11),
+      .iOS(.v14),
+      .tvOS(.v14),
       .watchOS("7.4"),
     ],
     products: [

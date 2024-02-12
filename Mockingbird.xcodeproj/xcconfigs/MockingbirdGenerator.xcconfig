@@ -8,4 +8,4 @@ PRODUCT_NAME = MockingbirdGenerator
 TARGET_NAME = MockingbirdGenerator
 
 // Compatibility
-MACOSX_DEPLOYMENT_TARGET = 10.15
+MACOSX_DEPLOYMENT_TARGET = 11
