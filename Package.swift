@@ -54,12 +54,12 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
     // These dependencies must be kept in sync with the Xcode project.
     // TODO: Add a build rule to enforce consistency.
     dependencies: [
-      .package(url: "https://github.com/apple/swift-argument-parser.git", .exact("1.0.2")),
-      .package(url: "https://github.com/kylef/PathKit.git", .exact("1.0.1")),
-      .package(name: "SwiftSyntax", url: "https://github.com/apple/swift-syntax.git", .exact("509.1.1")),
-      .package(url: "https://github.com/jpsim/SourceKitten.git", .exact("0.30.0")),
-      .package(url: "https://github.com/tuist/XcodeProj.git", .exact("8.18.0")),
-      .package(url: "https://github.com/weichsel/ZIPFoundation.git", .exact("0.9.14")),
+      .package(url: "https://github.com/apple/swift-argument-parser.git", exact: "1.0.2"),
+      .package(url: "https://github.com/kylef/PathKit.git", exact: "1.0.1"),
+      .package(url: "https://github.com/apple/swift-syntax.git", exact: "509.1.1"),
+      .package(url: "https://github.com/jpsim/SourceKitten.git", exact: "0.30.0"),
+      .package(url: "https://github.com/tuist/XcodeProj.git", exact: "8.18.0"),
+      .package(url: "https://github.com/weichsel/ZIPFoundation.git", exact: "0.9.14"),
     ],
     targets: [
       .target(name: "MockingbirdCommon"),
@@ -81,8 +81,8 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
         dependencies: [
           .product(name: "SourceKittenFramework", package: "SourceKitten"),
           "MockingbirdCommon",
-          .product(name: "SwiftSyntax", package: "SwiftSyntax"),
-          .product(name: "SwiftParser", package: "SwiftSyntax"),
+          .product(name: "SwiftSyntax", package: "swift-syntax"),
+          .product(name: "SwiftParser", package: "swift-syntax"),
           "XcodeProj",
         ]),
       .executableTarget(
