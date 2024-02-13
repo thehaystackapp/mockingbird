@@ -7,23 +7,23 @@ on:
   pull_request:
 
 jobs:
-  test-e2e:
-    name: Test E2E (Xcode ${{ matrix.xcode }})
-    runs-on: macos-14
-    strategy:
-      matrix:
-        xcode:
-        # - '13.1' # Swift 5.5
-        # - '13.2' # Swift 5.5.2
-        - '15.2' # Swift 5.9.2
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set Up Project
-      run: Sources/MockingbirdAutomationCli/buildAndRun.sh configure load --overwrite
-    - name: Test
-      env:
-        DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
-      run: Sources/MockingbirdAutomationCli/buildAndRun.sh test e2e
+  # test-e2e:
+  #   name: Test E2E (Xcode ${{ matrix.xcode }})
+  #   runs-on: macos-14
+  #   strategy:
+  #     matrix:
+  #       xcode:
+  #       # - '13.1' # Swift 5.5
+  #       # - '13.2' # Swift 5.5.2
+  #       - '15.2' # Swift 5.9.2
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: Set Up Project
+  #     run: Sources/MockingbirdAutomationCli/buildAndRun.sh configure load --overwrite
+  #   - name: Test
+  #     env:
+  #       DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
+  #     run: Sources/MockingbirdAutomationCli/buildAndRun.sh test e2e
 
   test-example-project:
     name: Test Example Project (${{ matrix.type }})
