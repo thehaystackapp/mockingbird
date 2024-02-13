@@ -63,7 +63,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
     ],
     targets: [
       .target(name: "MockingbirdCommon"),
-      .target(
+      .executableTarget(
         name: "MockingbirdCli",
         dependencies: [
           .product(name: "ArgumentParser", package: "swift-argument-parser"),
@@ -85,7 +85,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
           .product(name: "SwiftParser", package: "SwiftSyntax"),
           "XcodeProj",
         ]),
-      .target(
+      .executableTarget(
         name: "MockingbirdAutomationCli",
         dependencies: [
           .product(name: "ArgumentParser", package: "swift-argument-parser"),
