@@ -3662,7 +3662,7 @@
 			repositoryURL = "https://github.com/apple/swift-syntax.git";
 			requirement = {
 				kind = exactVersion;
-				version = 0.50500.0;
+				version = 509.1.1;
 			};
 		};
 		287F852325194EF5007D135D /* XCRemoteSwiftPackageReference "SourceKitten" */ = {
@@ -3686,7 +3686,7 @@
 			repositoryURL = "https://github.com/tuist/XcodeProj.git";
 			requirement = {
 				kind = exactVersion;
-				version = 8.7.1;
+				version = 8.18.0;
 			};
 		};
 		28874F8926BF12DD00097529 /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
