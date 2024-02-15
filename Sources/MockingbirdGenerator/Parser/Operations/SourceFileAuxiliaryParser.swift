@@ -11,6 +11,7 @@ class SourceFileAuxiliaryParser: SyntaxVisitor {
 
   init(with lazyConverter: @escaping () -> SourceLocationConverter) {
     self.lazyConverter = lazyConverter
+    super.init(viewMode: .sourceAccurate)
   }
   
   func parse<SyntaxType: SyntaxProtocol>(_ node: SyntaxType) -> Self {
@@ -21,8 +22,8 @@ class SourceFileAuxiliaryParser: SyntaxVisitor {
   /// Handle import declarations, e.g. `import Mockingbird`
   override func visit(_ node: ImportDeclSyntax) -> SyntaxVisitorContinueKind {
     guard let moduleName = node.path.first?.name.text else { return .skipChildren }
-    let fullPath = node.path.withoutTrivia().description
-    let fullDeclaration = node.withoutTrivia().description
+    let fullPath = node.path.trimmed.description
+    let fullDeclaration = node.trimmed.description
     let sourceRange = node.sourceRange(converter: converter,
                                        afterLeadingTrivia: true,
                                        afterTrailingTrivia: true)

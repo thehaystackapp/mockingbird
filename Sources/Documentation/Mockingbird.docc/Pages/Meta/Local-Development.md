@@ -17,7 +17,7 @@ Load the preset Xcode schemes. This step is optional but recommended.
 $ Sources/MockingbirdAutomationCli/buildAndRun.sh configure load
 ```
 
-Open the Xcode project in Xcode 13.2 or later.
+Open the Xcode project in Xcode 15.2 or later.
 
 ```console
 $ open Mockingbird.xcodeproj

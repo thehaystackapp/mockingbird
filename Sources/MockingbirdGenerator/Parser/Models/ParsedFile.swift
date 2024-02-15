@@ -76,11 +76,11 @@ struct CompilationDirective: Comparable, Hashable {
   init?(from clause: IfConfigClauseSyntax,
         priorDirectives: [CompilationDirective],
         converter: SourceLocationConverter) {
-    guard PoundKeyword(rawValue: clause.poundKeyword.withoutTrivia().text)?.isLogical == true
+    guard PoundKeyword(rawValue: clause.poundKeyword.trimmed.text)?.isLogical == true
       else { return nil }
     
     self.condition = clause.condition?
-      .withoutTrivia()
+      .trimmed
       .description
       .trimmingCharacters(in: .whitespacesAndNewlines)
     
