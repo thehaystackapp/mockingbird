@@ -1,4 +1,4 @@
 #import "MKBClassMock.h"
 #import "MKBConcreteMock.h"
-#import "MKBPropertyMock.h"
+#import "MKBProperty.h"
 #import "MKBProtocolMock.h"
