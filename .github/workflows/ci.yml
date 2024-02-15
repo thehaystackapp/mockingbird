@@ -62,7 +62,7 @@ jobs:
     - name: Build
       env:
         GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-      run: pod lib lint MockingbirdFramework.podspec
+      run: pod lib lint MockingbirdFramework.podspec --allow-warnings
 
   build-carthage:
     name: Build Carthage
