@@ -33,7 +33,7 @@ if [[ ! -x "${executable}" ]]; then
   fi
 
   # Download
-  readonly artifactsUrl="${MKB_ARTIFACTS_URL:-https://github.com/birdrides/mockingbird/releases/download/<VERSION>/<FILE>}"
+  readonly artifactsUrl="${MKB_ARTIFACTS_URL:-https://github.com/thehaystackapp/mockingbird/releases/download/<VERSION>/<FILE>}"
   readonly downloadUrl="$(echo "${artifactsUrl}" | sed "s|<VERSION>|${version}|" | sed "s|<FILE>|${archiveFileName}|")"
   echo "Downloading Mockingbird from ${downloadUrl} into ${binDir}/${version}"
   curl "${curlOpts[@]}" "${downloadUrl}"
