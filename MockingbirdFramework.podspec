@@ -7,9 +7,9 @@ Pod::Spec.new do |s|
   s.license                     = { :type => 'MIT', :file => 'LICENSE.md' }
   s.author                      = { 'Andrew Chang' => 'typealiased@gmail.com' }
   s.source                      = { :git => s.homepage + '.git', :tag => s.version }
-  s.ios.deployment_target       = '9.0'
-  s.osx.deployment_target       = '10.10'
-  s.tvos.deployment_target      = '9.0'
+  s.ios.deployment_target       = '14.0'
+  s.osx.deployment_target       = '11.0'
+  s.tvos.deployment_target      = '14.0'
   s.watchos.deployment_target   = '7.4'
   s.swift_version               = '5.0'
   s.frameworks                  = 'XCTest'

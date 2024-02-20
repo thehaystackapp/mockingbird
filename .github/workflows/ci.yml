@@ -31,8 +31,8 @@ jobs:
     strategy:
       matrix:
         type:
-        # - cocoapods
-        # - carthage
+        - cocoapods
+        - carthage
         - spm-project
         - spm-package
     steps:
@@ -54,25 +54,25 @@ jobs:
         MKB_ARTIFACTS_URL: https://github.com/birdrides/mockingbird/releases/download/0.19.0/<FILE>
       run: ./mockingbird version
 
-  # build-cocoapods:
-  #   name: Build CocoaPods
-  #   runs-on: macos-14
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Build
-  #     env:
-  #       GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-  #     run: pod lib lint MockingbirdFramework.podspec
+  build-cocoapods:
+    name: Build CocoaPods
+    runs-on: macos-14
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      env:
+        GH_ACCESS_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+      run: pod lib lint MockingbirdFramework.podspec --allow-warnings
 
-  # build-carthage:
-  #   name: Build Carthage
-  #   runs-on: macos-14
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: Set Up Project
-  #     run: Sources/MockingbirdAutomationCli/buildAndRun.sh configure unload --keep MockingbirdFramework
-  #   - name: Build Release
-  #     run: Sources/MockingbirdAutomationCli/buildAndRun.sh build
+  build-carthage:
+    name: Build Carthage
+    runs-on: macos-14
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set Up Project
+      run: Sources/MockingbirdAutomationCli/buildAndRun.sh configure unload --keep MockingbirdFramework
+    - name: Build Release
+      run: Sources/MockingbirdAutomationCli/buildAndRun.sh build
 
   build-swiftpm:
     name: Build SwiftPM
