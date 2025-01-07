@@ -45,7 +45,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
   package = Package(
     name: "Mockingbird",
     platforms: [
-      .macOS(.v10_15),
+      .macOS(.v12),
     ],
     products: [
       .executable(name: "mockingbird", targets: ["MockingbirdCli"]),
