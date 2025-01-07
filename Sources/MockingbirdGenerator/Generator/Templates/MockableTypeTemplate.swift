@@ -354,7 +354,7 @@ class MockableTypeTemplate: Template {
     // Opaque types can have designated initializers we don't know about, so it's best to ignore.
     guard mockableType.opaqueInheritedTypeNames.isEmpty else {
       logWarning(
-        "Unable to synthesize default initializer for \(mockableType.name.singleQuoted) which inherits from an external type not defined in a supporting source file",
+        "Unable to synthesize default initializer for \(self.mockableType.name.singleQuoted) which inherits from an external type not defined in a supporting source file",
         diagnostic: .undefinedType,
         filePath: mockableType.filePath,
         line: self.mockableType.lineNumber
@@ -367,7 +367,7 @@ class MockableTypeTemplate: Template {
     
     guard mockableType.kind == .protocol else { // Handle classes.
       if hasDesignatedInitializer {
-        log("Skipping default initializer generation for \(mockableType.name.singleQuoted) because it is a class with a designated initializer")
+        log("Skipping default initializer generation for \(self.mockableType.name.singleQuoted) because it is a class with a designated initializer")
       }
       return !hasDesignatedInitializer
     }
@@ -377,14 +377,14 @@ class MockableTypeTemplate: Template {
     
     // Ignore protocols conforming to a class with a designated initializer.
     guard !hasDesignatedInitializer else {
-      log("Skipping default initializer generation for \(mockableType.name.singleQuoted) because it is a protocol conforming to a class with a designated initializer")
+      log("Skipping default initializer generation for \(self.mockableType.name.singleQuoted) because it is a protocol conforming to a class with a designated initializer")
       return false
     }
     
     let isMockableClassConformance = mockableType.primarySelfConformanceType?.shouldMock ?? true
     if !isMockableClassConformance {
       logWarning(
-        "\(mockableType.name.singleQuoted) conforms to a class without public initializers and cannot be initialized",
+        "\(self.mockableType.name.singleQuoted) conforms to a class without public initializers and cannot be initialized",
         diagnostic: .notMockable,
         filePath: mockableType.filePath,
         line: self.mockableType.lineNumber

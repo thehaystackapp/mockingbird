@@ -3,7 +3,7 @@ import Mockingbird
 @testable import MockingbirdTestsHost
 import CoreBluetooth
 
-extension FakeableGenericClass: Providable {
+extension FakeableGenericClass: @retroactive Providable {
   public static func createInstance() -> Self? { FakeableGenericClass() as? Self }
 }
 
