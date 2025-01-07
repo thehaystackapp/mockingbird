@@ -8,7 +8,7 @@ extension PBXTarget: Target {
   var testingBuildConfiguration: XCBuildConfiguration? {
     guard let inferredBuildConfiguration = buildConfigurationList?.buildConfigurations
       .first(where: { $0.name.lowercased() == "debug" }) else {
-        logWarning("No debug build configuration found for target \(name.singleQuoted)")
+        logWarning("No debug build configuration found for target \(self.name.singleQuoted)")
         return buildConfigurationList?.buildConfigurations.first
     }
     return inferredBuildConfiguration
@@ -23,12 +23,12 @@ extension PBXTarget: Target {
       )
     else {
       let fallbackModuleName = name.escapingForModuleName()
-      logWarning("Unable to resolve product module name for target \(name.singleQuoted), falling back to \(fallbackModuleName.singleQuoted)")
+      logWarning("Unable to resolve product module name for target \(self.name.singleQuoted), falling back to \(fallbackModuleName.singleQuoted)")
       return fallbackModuleName
     }
     
     let escapedModuleName = moduleName.escapingForModuleName()
-    log("Resolved product module name \(escapedModuleName.singleQuoted) for target \(name.singleQuoted)")
+    log("Resolved product module name \(escapedModuleName.singleQuoted) for target \(self.name.singleQuoted)")
     return escapedModuleName
   }
 

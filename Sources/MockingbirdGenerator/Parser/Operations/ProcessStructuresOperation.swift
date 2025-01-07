@@ -27,7 +27,7 @@ class ProcessStructuresOperation: BasicOperation {
                                                                   containingTypeNames: [],
                                                                   genericTypeContext: [],
                                                                   definedInExtension: false))
-    log("Created \(result.rawTypes.count) raw type\(result.rawTypes.count != 1 ? "s" : "") from source file at \(parsedFile.path.absolute())")
+    log("Created \(self.result.rawTypes.count) raw type\(self.result.rawTypes.count != 1 ? "s" : "") from source file at \(self.parsedFile.path.absolute())")
   }
   
   /// Create a `RawType` object from a parsed file's `StructureDictionary`.

@@ -34,26 +34,26 @@ public class CheckCacheOperation: BasicOperation {
       guard mockedTypesHash == target.mockedTypesHash else {
         let previousHash = target.mockedTypesHash ?? ""
         let currentHash = mockedTypesHash ?? ""
-        log("Invalidated cached source target metadata for \(target.name.singleQuoted) because the referenced mock types hash changed from \(previousHash.singleQuoted) to \(currentHash.singleQuoted)")
+        log("Invalidated cached source target metadata for \(self.target.name.singleQuoted) because the referenced mock types hash changed from \(previousHash.singleQuoted) to \(currentHash.singleQuoted)")
         return
       }
       
       let currentTargetPathsHash = try extractSourcesResult.generateTargetPathsHash()
       guard currentTargetPathsHash == target.targetPathsHash else {
-        log("Invalidated cached mocks for \(target.name.singleQuoted) because the target paths hash changed from \(target.targetPathsHash.singleQuoted) to \(currentTargetPathsHash.singleQuoted)")
+        log("Invalidated cached mocks for \(self.target.name.singleQuoted) because the target paths hash changed from \(self.target.targetPathsHash.singleQuoted) to \(currentTargetPathsHash.singleQuoted)")
         return
       }
       
       let currentDependencyPathsHash = try extractSourcesResult.generateDependencyPathsHash()
       guard currentDependencyPathsHash == target.dependencyPathsHash else {
-        log("Invalidated cached mocks for \(target.name.singleQuoted) because the dependency paths hash changed from \(target.dependencyPathsHash.singleQuoted) to \(currentDependencyPathsHash.singleQuoted)")
+        log("Invalidated cached mocks for \(self.target.name.singleQuoted) because the dependency paths hash changed from \(self.target.dependencyPathsHash.singleQuoted) to \(currentDependencyPathsHash.singleQuoted)")
         return
       }
       
       let outputFileData = (try? outputFilePath.read()) ?? Data()
       let currentOutputFilePathHash = outputFileData.hash()
       guard currentOutputFilePathHash == target.outputHash else {
-        log("Invalidated cached mocks for \(target.name.singleQuoted) because the output file content hash changed from \(target.outputHash.singleQuoted) to \(currentOutputFilePathHash.singleQuoted)")
+        log("Invalidated cached mocks for \(self.target.name.singleQuoted) because the output file content hash changed from \(self.target.outputHash.singleQuoted) to \(currentOutputFilePathHash.singleQuoted)")
         return
       }
       
@@ -63,11 +63,11 @@ public class CheckCacheOperation: BasicOperation {
           return (try? $0.path.read())?.hash() != sourceHashes[$0.path.absolute()]
         })
       guard changedFiles.isEmpty else {
-        log("Invalidated cached mocks for \(target.name.singleQuoted) because \(changedFiles.count) source file\(changedFiles.count != 1 ? "s" : "") were modified - \(changedFiles.map({ "\($0.path.absolute())" }).sorted())")
+        log("Invalidated cached mocks for \(self.target.name.singleQuoted) because \(changedFiles.count) source file\(changedFiles.count != 1 ? "s" : "") were modified - \(changedFiles.map({ "\($0.path.absolute())" }).sorted())")
         return
       }
       
-      log("Skipping mock generation for target \(target.name.singleQuoted) with valid cached data")
+      log("Skipping mock generation for target \(self.target.name.singleQuoted) with valid cached data")
       result.isCached = true
     }
   }

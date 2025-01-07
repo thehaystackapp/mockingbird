@@ -64,6 +64,6 @@ public class GenerateFileOperation: BasicOperation {
       try config.outputPath.writeUtf8Strings(contents)
     }
     
-    logInfo("Generated file to \(config.outputPath.absolute())")
+    logInfo("Generated file to \(self.config.outputPath.absolute())")
   }
 }

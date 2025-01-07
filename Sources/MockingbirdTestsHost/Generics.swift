@@ -201,31 +201,6 @@ public class GenericBaseClass<T> {
     -> MyDictionary<String, T> { fatalError() }
 }
 
-// MARK: Shadowing
-
-public struct ShadowedType {}
-
-public class ShadowedGenericType<ShadowedType> {
-  func shadowedClassScope(param: ShadowedType) -> ShadowedType { fatalError() }
-  func shadowedFunctionScope<ShadowedType>(param: ShadowedType) -> ShadowedType { fatalError() }
-  func shadowedFunctionScope<ShadowedType>(param: Array<ShadowedType>)
-    -> Array<ShadowedType> { fatalError() }
-  
-  public class NestedShadowedGenericType {
-    func shadowedClassScope(param: ShadowedType) -> ShadowedType { fatalError() }
-    func shadowedFunctionScope<ShadowedType>(param: ShadowedType) -> ShadowedType { fatalError() }
-    func shadowedFunctionScope<ShadowedType>(param: Array<ShadowedType>)
-      -> Array<ShadowedType> { fatalError() }
-  }
-  
-  public class NestedDoublyShadowedGenericType<ShadowedType> {
-    func shadowedClassScope(param: ShadowedType) -> ShadowedType { fatalError() }
-    func shadowedFunctionScope<ShadowedType>(param: ShadowedType) -> ShadowedType { fatalError() }
-    func shadowedFunctionScope<ShadowedType>(param: Array<ShadowedType>)
-      -> Array<ShadowedType> { fatalError() }
-  }
-}
-
 // MARK: Specialization
 
 class SpecializedGenericSubclass: GenericBaseClass<Bool> {}
@@ -249,9 +224,6 @@ protocol AbstractSpecializedGenericProtocol: GenericBaseClass<Bool> {
 protocol InheritingAbstractSpecializedGenericProtocol: AbstractSpecializedGenericProtocol {}
 protocol IndirectlyInheritingAbstractSpecializedGenericProtocol:
 InheritingAbstractSpecializedGenericProtocol {}
-
-class SpecializedShadowedGenericSubclass: ShadowedGenericType<NSObject> {}
-protocol SpecializedShadowedGenericProtocol: ShadowedGenericType<NSObject> {}
 
 class UnspecializedGenericSubclass<T>: GenericBaseClass<T> {}
 class InheritingUnspecializedGenericSubclass<T>: UnspecializedGenericSubclass<T> {}

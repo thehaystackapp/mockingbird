@@ -83,18 +83,18 @@ private class ParseTestFileOperation: BasicOperation {
     let parser = TestFileParser().parse(sourceFile)
     retainForever(parser)
     result.mockedTypeNames = parser.mockedTypeNames
-    log("Parsed \(result.mockedTypeNames.count) referenced mock type\(result.mockedTypeNames.count != 1 ? "s" : "") in \(sourcePath.path.absolute())")
+    log("Parsed \(self.result.mockedTypeNames.count) referenced mock type\(self.result.mockedTypeNames.count != 1 ? "s" : "") in \(self.sourcePath.path.absolute())")
   }
   
   private func checkCached() throws -> Set<String>? {
     guard let cachedMockedTypeNames = cachedMockedTypeNames else { return nil }
     let currentHash = try sourcePath.path.read().hash()
     guard currentHash == cachedMockedTypeNames.fileHash else {
-      log("Invalidated cached referenced mock types because the test file content hash changed from \(cachedMockedTypeNames.fileHash.singleQuoted) to \(currentHash.singleQuoted) for \(sourcePath.path.absolute())")
+      log("Invalidated cached referenced mock types because the test file content hash changed from \(cachedMockedTypeNames.fileHash.singleQuoted) to \(currentHash.singleQuoted) for \(self.sourcePath.path.absolute())")
       return nil
     }
     
-    log("Using \(cachedMockedTypeNames.typeNames.count) cached referenced mock type\(cachedMockedTypeNames.typeNames.count != 1 ? "s" : "") for \(sourcePath.path.absolute())")
+    log("Using \(cachedMockedTypeNames.typeNames.count) cached referenced mock type\(cachedMockedTypeNames.typeNames.count != 1 ? "s" : "") for \(self.sourcePath.path.absolute())")
     return cachedMockedTypeNames.typeNames
   }
 }
