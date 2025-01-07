@@ -8,12 +8,12 @@ on:
   pull_request:
 
 env:
-  DEVELOPER_DIR: /Applications/Xcode_15.2.app/Contents/Developer
+  DEVELOPER_DIR: /Applications/Xcode_16.2.0.app/Contents/Developer
 
 jobs:
   build-signed-artifacts:
     name: Build Signed Artifacts
-    runs-on: macos-14
+    runs-on: macos-15
     steps:
     - uses: actions/checkout@v2
     # - name: Import Secrets
@@ -65,7 +65,7 @@ jobs:
 
   build-docs:
     name: Build Docs
-    runs-on: macos-14
+    runs-on: macos-15
     if: false
     steps:
     - uses: actions/checkout@v2
