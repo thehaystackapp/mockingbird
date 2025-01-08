@@ -80,11 +80,15 @@ extension Path {
     let write: (String) throws -> Void = { contents in
       let rawData = contents.utf8CString
       let count = rawData.count-1 // Last character is a `Nul` character in a C string.
-      guard count > 0, let data = rawData.withUnsafeBytes({
-        $0.bindMemory(to: UInt8.self).baseAddress
-      }) else { throw WriteUtf8StringFailure.dataEncodingFailure }
+      guard count > 0 else { throw WriteUtf8StringFailure.dataEncodingFailure }
       
-      let written = outputStream.write(data, maxLength: count)
+      let written = try rawData.withUnsafeBytes({
+        guard let data = $0.bindMemory(to: UInt8.self).baseAddress else {
+          throw WriteUtf8StringFailure.dataEncodingFailure
+        }
+        return outputStream.write(data, maxLength: count)
+      })
+      
       guard written == count else {
         throw WriteUtf8StringFailure.streamWritingFailure(error: outputStream.streamError)
       }
