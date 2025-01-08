@@ -2,7 +2,7 @@ import Foundation
 import SourceKittenFramework
 import os.log
 
-public class ProcessTypesOperation: BasicOperation {
+public class ProcessTypesOperation: BasicOperation, @unchecked Sendable {
   let parseFilesResult: ParseFilesOperation.Result
   let checkCacheResult: CheckCacheOperation.Result?
   let useRelaxedLinking: Bool

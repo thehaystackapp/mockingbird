@@ -2,7 +2,7 @@ import Foundation
 import MockingbirdCommon
 import PathKit
 
-public class CheckCacheOperation: BasicOperation {
+public class CheckCacheOperation: BasicOperation, @unchecked Sendable {
   let extractSourcesResult: ExtractSourcesOperationResult
   let findMockedTypesResult: FindMockedTypesOperation.Result?
   let target: SourceTarget

@@ -32,7 +32,7 @@ public struct ExtractSourcesOptions: OptionSet {
 }
 
 /// Given a target, find all related source files including those compiled by dependencies.
-public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesAbstractOperation {
+public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesAbstractOperation, @unchecked Sendable {
   public let target: T
   let sourceRoot: Path
   let supportPath: Path?
@@ -156,7 +156,7 @@ public class ExtractSourcesOperation<T: Target>: BasicOperation, ExtractSourcesA
 }
 
 /// Finds whether a given source path is ignored by a `.mockingbird-ignore` file.
-private class GlobSearchOperation: BasicOperation {
+private class GlobSearchOperation: BasicOperation, @unchecked Sendable {
   class Result {
     fileprivate(set) var sourcePath: SourcePath?
   }

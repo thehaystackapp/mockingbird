@@ -1,6 +1,7 @@
 import Foundation
 import ArgumentParser
 
+@main
 struct Automation: ParsableCommand {
   static var configuration = CommandConfiguration(
     abstract: "Task runner for Mockingbird.",
@@ -10,5 +11,3 @@ struct Automation: ParsableCommand {
       Configure.self,
     ])
 }
-
-Automation.main()

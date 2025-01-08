@@ -1,6 +1,6 @@
 import Foundation
 
-class RenderTemplateOperation: BasicOperation {
+class RenderTemplateOperation: BasicOperation, @unchecked Sendable {
   let template: Template
   
   class Result {

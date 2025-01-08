@@ -29,6 +29,7 @@ jobs:
     name: Test Example Project (${{ matrix.type }})
     runs-on: macos-15
     strategy:
+      fail-fast: false
       matrix:
         type:
         - cocoapods
