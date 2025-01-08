@@ -187,7 +187,7 @@
 		28DDDFC126B8571D002556C7 /* DynamicCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DDDFC026B8571D002556C7 /* DynamicCast.swift */; };
 		28E2A58E277E8F43002975B3 /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = 28E2A56C277E8F43002975B3 /* ArgumentParser */; };
 		28E2A58F277E8F43002975B3 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 28E2A56A277E8F43002975B3 /* ZIPFoundation */; };
-		28E2A596277E8F55002975B3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E2A530277E8BE1002975B3 /* main.swift */; };
+		28E2A596277E8F55002975B3 /* Automation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E2A530277E8BE1002975B3 /* Automation.swift */; };
 		28E2A597277E8F56002975B3 /* Build.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E28277B45A100DE525A /* Build.swift */; };
 		28E2A598277E8F58002975B3 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E93277D315F00DE525A /* Configure.swift */; };
 		28E2A599277E8F59002975B3 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E96277D554000DE525A /* Test.swift */; };
@@ -364,7 +364,6 @@
 		OBJ_814 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* Generator.swift */; };
 		OBJ_815 /* Installer.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Installer.swift */; };
 		OBJ_817 /* Mockingbird.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* Mockingbird.swift */; };
-		OBJ_821 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* main.swift */; };
 		OBJ_874 /* ArgumentCaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* ArgumentCaptor.swift */; };
 		OBJ_875 /* ArgumentMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* ArgumentMatcher.swift */; };
 		OBJ_876 /* CountMatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* CountMatcher.swift */; };
@@ -711,7 +710,7 @@
 		28DBC3DE277ED20800A6C96F /* BuildDocumentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildDocumentation.swift; sourceTree = "<group>"; };
 		28DBC3EE277EDAF600A6C96F /* DocC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocC.swift; sourceTree = "<group>"; };
 		28DDDFC026B8571D002556C7 /* DynamicCast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCast.swift; sourceTree = "<group>"; };
-		28E2A530277E8BE1002975B3 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		28E2A530277E8BE1002975B3 /* Automation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Automation.swift; sourceTree = "<group>"; };
 		28E2A594277E8F43002975B3 /* MockingbirdAutomationCli */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MockingbirdAutomationCli; sourceTree = BUILT_PRODUCTS_DIR; };
 		28FB7EB42789B9B000125FDA /* mockingbird.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mockingbird.txt; sourceTree = "<group>"; };
 		28FB7EB52789B9B000125FDA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -928,7 +927,6 @@
 		OBJ_276 /* PathFnmatchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathFnmatchTests.swift; sourceTree = "<group>"; };
 		OBJ_277 /* StringExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensionsTests.swift; sourceTree = "<group>"; };
 		OBJ_278 /* SubstitutionStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubstitutionStyleTests.swift; sourceTree = "<group>"; };
-		OBJ_28 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		OBJ_30 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		OBJ_32 /* ArgumentCaptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentCaptor.swift; sourceTree = "<group>"; };
 		OBJ_33 /* ArgumentMatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArgumentMatcher.swift; sourceTree = "<group>"; };
@@ -1355,7 +1353,7 @@
 			isa = PBXGroup;
 			children = (
 				285C8E95277D444B00DE525A /* buildAndRun.sh */,
-				28E2A530277E8BE1002975B3 /* main.swift */,
+				28E2A530277E8BE1002975B3 /* Automation.swift */,
 				28E2A52E277E8B0D002975B3 /* Commands */,
 				28FB7EB22789B9B000125FDA /* Resources */,
 			);
@@ -2024,7 +2022,6 @@
 			children = (
 				OBJ_9 /* Info.plist */,
 				2820731B277E8FF800BAFB97 /* buildAndRun.sh */,
-				OBJ_28 /* main.swift */,
 				28C2EE44277196CB003CD0D5 /* Arguments */,
 				OBJ_12 /* Commands */,
 				28C2EE4527719737003CD0D5 /* Handlers */,
@@ -2488,7 +2485,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				28E2A596277E8F55002975B3 /* main.swift in Sources */,
+				28E2A596277E8F55002975B3 /* Automation.swift in Sources */,
 				285CEA8D278523C70005C91F /* BuildCli.swift in Sources */,
 				28E2A597277E8F56002975B3 /* Build.swift in Sources */,
 				28E2A598277E8F58002975B3 /* Configure.swift in Sources */,
@@ -2685,7 +2682,6 @@
 				28C2EE4E27728C4F003CD0D5 /* URLArgument.swift in Sources */,
 				28874F9326BF828800097529 /* InferableArgument.swift in Sources */,
 				28874F8D26BF7AB000097529 /* Configure.swift in Sources */,
-				OBJ_821 /* main.swift in Sources */,
 				28874F9126BF7FA400097529 /* ValidatableArgument.swift in Sources */,
 				28C2EE3F277195B0003CD0D5 /* OptionArgumentEncoding.swift in Sources */,
 				2838FD2127756314007A1CB4 /* Path+Abbreviate.swift in Sources */,

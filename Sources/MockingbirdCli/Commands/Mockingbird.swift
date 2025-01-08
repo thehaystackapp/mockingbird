@@ -5,6 +5,7 @@ import MockingbirdGenerator
 import PathKit
 
 /// Represents a CLI that can parse arguments and run the appropriate `Command`.
+@main
 struct Mockingbird: ParsableCommand {
   static var configuration = CommandConfiguration(
     abstract: "A convenient mocking framework for Swift.",
