@@ -31,7 +31,7 @@ public struct GenerateFileConfig {
   }
 }
 
-public class GenerateFileOperation: BasicOperation {
+public class GenerateFileOperation: BasicOperation, @unchecked Sendable {
   let processTypesResult: ProcessTypesOperation.Result
   let checkCacheResult: CheckCacheOperation.Result?
   let findMockedTypesResult: FindMockedTypesOperation.Result?

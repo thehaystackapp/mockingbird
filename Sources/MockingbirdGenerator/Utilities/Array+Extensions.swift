@@ -18,7 +18,7 @@ public extension Array where Element: Hashable {
   }
 }
 
-extension Array: Comparable where Element: Comparable {
+extension Array: @retroactive Comparable where Element: Comparable {
   public static func < (lhs: Array<Element>, rhs: Array<Element>) -> Bool {
     for (lhsElement, rhsElement) in zip(lhs, rhs) {
       if lhsElement < rhsElement { return true }

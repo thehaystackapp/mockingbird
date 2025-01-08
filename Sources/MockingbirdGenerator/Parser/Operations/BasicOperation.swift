@@ -1,6 +1,6 @@
 import Foundation
 
-public class BasicOperation: Operation {
+public class BasicOperation: Operation, @unchecked Sendable {
   override public var isAsynchronous: Bool { return false }
   override public var isConcurrent: Bool { return true }
   

@@ -5,7 +5,7 @@ import SourceKittenFramework
 import SwiftSyntax
 import SwiftParser
 
-class ParseSingleFileOperation: BasicOperation {
+class ParseSingleFileOperation: BasicOperation, @unchecked Sendable {
   class Result {
     fileprivate(set) var parsedFile: ParsedFile?
   }
@@ -61,7 +61,7 @@ class ParseSingleFileOperation: BasicOperation {
   }
 }
 
-class ParseSourceKitOperation: BasicOperation {
+class ParseSourceKitOperation: BasicOperation, @unchecked Sendable {
   class Result {
     fileprivate(set) var structure: Structure?
     fileprivate(set) var file: File?
@@ -82,7 +82,7 @@ class ParseSourceKitOperation: BasicOperation {
   }
 }
 
-class ParseSwiftSyntaxOperation: BasicOperation {
+class ParseSwiftSyntaxOperation: BasicOperation, @unchecked Sendable {
   class Result {
     fileprivate(set) var importDeclarations = Set<ImportDeclaration>()
     fileprivate(set) var compilationDirectives = [CompilationDirective]()

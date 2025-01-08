@@ -4,7 +4,7 @@ import SourceKittenFramework
 /// Creates minimal `RawType` partial objects from `ParsedFile` SourceKitten structures. Partials
 /// can be classes, protocols, extensions, typealiases, etc, which are then combined later in a
 /// `FlattenInheritanceOperation` to create a hydrated `MockableType`.
-class ProcessStructuresOperation: BasicOperation {
+class ProcessStructuresOperation: BasicOperation, @unchecked Sendable {
   let structureDictionary: StructureDictionary
   let parsedFile: ParsedFile
   

@@ -4,7 +4,7 @@ import PathKit
 import SwiftSyntax
 import SwiftParser
 
-public class FindMockedTypesOperation: BasicOperation {
+public class FindMockedTypesOperation: BasicOperation, @unchecked Sendable {
   public class Result {
     public fileprivate(set) var allMockedTypeNames = Set<String>()
     public fileprivate(set) var mockedTypeNames = [Path: Set<String>]()
@@ -57,7 +57,7 @@ public class FindMockedTypesOperation: BasicOperation {
 }
 
 /// Find mock types that are referenced in a `mock(SomeType.self)` initializer.
-private class ParseTestFileOperation: BasicOperation {
+private class ParseTestFileOperation: BasicOperation, @unchecked Sendable {
   class Result {
     fileprivate(set) var mockedTypeNames = Set<String>()
   }
