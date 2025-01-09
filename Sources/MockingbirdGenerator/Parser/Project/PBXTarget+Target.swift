@@ -33,11 +33,36 @@ extension PBXTarget: Target {
   }
 
   public func findSourceFilePaths(sourceRoot: Path) -> [Path] {
-    guard let phase = buildPhases.first(where: { $0.buildPhase == .sources }) else { return [] }
-    return phase.files?
-      .compactMap({ try? $0.file?.fullPath(sourceRoot: sourceRoot) })
-      .filter({ $0.extension == "swift" })
-      .map({ $0.absolute() }) ?? []
+    var sourceFilePaths: [Path] = []
+    
+    if let phase = buildPhases.first(where: { $0.buildPhase == .sources }) {
+      sourceFilePaths += phase.files?
+        .compactMap({ try? $0.file?.fullPath(sourceRoot: sourceRoot) })
+        .filter({ $0.extension == "swift" })
+        .map({ $0.absolute() }) ?? []
+    }
+    
+    if let fileSystemSynchronizedGroups {
+      let fileSystemSchnronizedSourcePaths: [Path] = fileSystemSynchronizedGroups.flatMap { group -> [Path] in
+        guard let fullPath = try? group.fullPath(sourceRoot: sourceRoot) else { return [] }
+        
+        let exceptions = Set(group.exceptions?
+          .flatMap { $0.membershipExceptions?.map { fullPath + Path($0) } ?? [] }
+          .map { $0.absolute() } ?? [])
+        
+        guard let children = try? fullPath.recursiveChildren() else { return [] }
+        let swiftFiles = children
+          .filter { $0.extension == "swift" }
+          .map { $0.absolute() }
+          .filter { !exceptions.contains($0) }
+        
+        return swiftFiles
+      }
+      
+      sourceFilePaths += fileSystemSchnronizedSourcePaths
+    }
+    
+    return sourceFilePaths
   }
   
   /// Certain environment build settings are synthesized by Xcode and don't exist in the project
