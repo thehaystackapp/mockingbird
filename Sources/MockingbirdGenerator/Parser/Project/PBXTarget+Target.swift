@@ -47,6 +47,8 @@ extension PBXTarget: Target {
         guard let fullPath = try? group.fullPath(sourceRoot: sourceRoot) else { return [] }
         
         let exceptions = Set(group.exceptions?
+          // Only consider exceptions that apply to this target.
+          .filter { $0.target == self }
           .flatMap { $0.membershipExceptions?.map { fullPath + Path($0) } ?? [] }
           .map { $0.absolute() } ?? [])
         
