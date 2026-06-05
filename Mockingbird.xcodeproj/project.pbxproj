@@ -200,6 +200,7 @@
 		28FB7EC82789D0E000125FDA /* Path+Backup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FB7EC72789D0E000125FDA /* Path+Backup.swift */; };
 		28FB7ECA2789D87800125FDA /* Git.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FB7EC92789D87800125FDA /* Git.swift */; };
 		5E45ADF4279DA63D004AB972 /* StubbingAsyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E45ADF3279DA63D004AB972 /* StubbingAsyncTests.swift */; };
+		5E45ADFD279DA63D004AB972 /* AsyncEventuallyVerificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E45ADFC279DA63D004AB972 /* AsyncEventuallyVerificationTests.swift */; };
 		5E45ADF7279DB9A9004AB972 /* AsyncMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E45ADF5279DB949004AB972 /* AsyncMethods.swift */; };
 		8356225C26A94CBE005CD5C5 /* TargetDescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */; };
 		D314ED7F24CE1C10000CC23D /* GenericsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D314ED7E24CE1C10000CC23D /* GenericsTests.swift */; };
@@ -722,6 +723,7 @@
 		28FB7EC72789D0E000125FDA /* Path+Backup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Path+Backup.swift"; sourceTree = "<group>"; };
 		28FB7EC92789D87800125FDA /* Git.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Git.swift; sourceTree = "<group>"; };
 		5E45ADF3279DA63D004AB972 /* StubbingAsyncTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubbingAsyncTests.swift; sourceTree = "<group>"; };
+		5E45ADFC279DA63D004AB972 /* AsyncEventuallyVerificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncEventuallyVerificationTests.swift; sourceTree = "<group>"; };
 		5E45ADF5279DB949004AB972 /* AsyncMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncMethods.swift; sourceTree = "<group>"; };
 		8356225B26A94CBE005CD5C5 /* TargetDescriptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetDescriptionTests.swift; sourceTree = "<group>"; };
 		942B00CDCB48ADC877A01AEE /* MockingbirdTestsHostMocks.generated.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = MockingbirdTestsHostMocks.generated.swift; path = Tests/MockingbirdTests/Mocks/MockingbirdTestsHostMocks.generated.swift; sourceTree = "<group>"; };
@@ -1728,6 +1730,7 @@
 				OBJ_252 /* ArgumentCaptorTests.swift */,
 				OBJ_253 /* ArgumentMatchingTests.swift */,
 				OBJ_254 /* AsyncVerificationTests.swift */,
+				5E45ADFC279DA63D004AB972 /* AsyncEventuallyVerificationTests.swift */,
 				OBJ_255 /* ClosureParameterTests.swift */,
 				D3E6F67324838182000D1971 /* ChainedStubbingTests.swift */,
 				OBJ_256 /* CollectionArgumentMatchingTests.swift */,
@@ -2540,6 +2543,7 @@
 				OBJ_1058 /* ArgumentCaptorTests.swift in Sources */,
 				OBJ_1059 /* ArgumentMatchingTests.swift in Sources */,
 				OBJ_1060 /* AsyncVerificationTests.swift in Sources */,
+				5E45ADFD279DA63D004AB972 /* AsyncEventuallyVerificationTests.swift in Sources */,
 				OBJ_1061 /* ClosureParameterTests.swift in Sources */,
 				OBJ_1062 /* CollectionArgumentMatchingTests.swift in Sources */,
 				OBJ_1063 /* CountMatcherTests.swift in Sources */,
