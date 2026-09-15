@@ -28,7 +28,7 @@ If needed, provide a short description of how it should work.
 
 * Mockingbird CLI version (`mockingbird version`)
 * Xcode and Swift version (`swift --version`)
-* Package manager (Carthage, SPM project, SPM package)
+* Package manager (SPM project, SPM package)
 * Unit testing framework (XCTest, Quick/Nimble)
 * Custom configuration
   - [ ] Mockingbird ignore files

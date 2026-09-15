@@ -72,6 +72,7 @@ public enum XcodeBuild {
     project: Project,
     destination: Destination,
     buildPath: Path = Constants.tmpBuildPath,
+    derivedDataPath: Path? = nil,
     environment: [String: String] = ProcessInfo.processInfo.environment
   ) throws {
     try Subprocess("xcrun", [
@@ -81,7 +82,12 @@ public enum XcodeBuild {
       "-\(target.optionName)", target.name,
       "-\(project.optionName)", project.path.absolute().string,
       "-destination", destination.optionValue,
-    ], environment: environment).run()
+    ] + derivedDataArguments(derivedDataPath), environment: environment).run()
+  }
+  
+  private static func derivedDataArguments(_ path: Path?) -> [String] {
+    guard let path = path else { return [] }
+    return ["-derivedDataPath", path.absolute().string]
   }
   
   public static func clean(target: Target,
@@ -97,13 +103,19 @@ public enum XcodeBuild {
   }
   
   public static func resolvePackageDependencies(
+    target: Target? = nil,
     project: Project,
+    derivedDataPath: Path? = nil,
     environment: [String: String] = ProcessInfo.processInfo.environment
   ) throws {
+    let targetArguments: [String] = {
+      guard let target = target else { return [] }
+      return ["-\(target.optionName)", target.name]
+    }()
     try Subprocess("xcrun", [
       "xcodebuild",
       "-resolvePackageDependencies",
       "-\(project.optionName)", project.path.absolute().string,
-    ], environment: environment).run()
+    ] + targetArguments + derivedDataArguments(derivedDataPath), environment: environment).run()
   }
 }

@@ -34,10 +34,6 @@ jobs:
       run: |
         Sources/MockingbirdAutomationCli/buildAndRun.sh build cli \
           --archive .build/mockingbird/artifacts/Mockingbird.zip
-    - name: Build Framework
-      run: |
-        Sources/MockingbirdAutomationCli/buildAndRun.sh build framework \
-          --archive .build/mockingbird/artifacts/Mockingbird.xcframework.zip
     - name: Build Supporting Sources
       run: |
         Sources/MockingbirdAutomationCli/buildAndRun.sh build supporting \
@@ -45,18 +41,12 @@ jobs:
     - name: Document SHAs
       run: |
         shasum -a 512 .build/mockingbird/artifacts/Mockingbird.zip
-        shasum -a 512 .build/mockingbird/artifacts/Mockingbird.xcframework.zip
         shasum -a 512 .build/mockingbird/artifacts/MockingbirdSupport.zip
     - name: Upload CLI
       uses: actions/upload-artifact@v4
       with:
         name: Mockingbird.zip
         path: .build/mockingbird/artifacts/Mockingbird.zip
-    - name: Upload Framework
-      uses: actions/upload-artifact@v4
-      with:
-        name: Mockingbird.xcframework.zip
-        path: .build/mockingbird/artifacts/Mockingbird.xcframework.zip
     - name: Upload Supporting Sources
       uses: actions/upload-artifact@v4
       with:

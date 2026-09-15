@@ -28,7 +28,7 @@ var/
 !default.perspectivev3
 xcuserdata
 
-## Scheme exclusion for Carthage
+## Shared schemes are managed with `automation configure`
 Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme
 !Mockingbird.xcodeproj/xcshareddata/xcschemes/MockingbirdFramework.xcscheme
 
@@ -38,10 +38,6 @@ Mockingbird.xcodeproj/xcshareddata/xcschemes/*.xcscheme
 *.xcuserstate
 *.xcscmblueprint
 *.xcodeproj.backup
-
-## Carthage
-Carthage/Checkouts
-Carthage/Build
 
 ## Swift Package Manager
 Packages/

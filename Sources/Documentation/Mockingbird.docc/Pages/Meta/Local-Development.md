@@ -40,17 +40,3 @@ You can also bundle the binary with the necessary libraries.
 ```console
 $ Sources/MockingbirdAutomationCli/buildAndRun.sh build generator --archive mockingbird.zip
 ```
-
-#### Framework
-
-Use the build automation script which uses Carthage to create a fat XCFramework bundle containing all supported platforms.
-
-```console
-$ Sources/MockingbirdAutomationCli/buildAndRun.sh build framework
-```
-
-For quicker builds, you can specify the target platforms to build against.
-
-```console
-$ Sources/MockingbirdAutomationCli/buildAndRun.sh build framework --platforms iOS macOS
-```

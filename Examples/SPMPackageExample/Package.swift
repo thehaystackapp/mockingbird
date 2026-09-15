@@ -12,8 +12,8 @@ let package = Package(
   dependencies: [
     .package(
       name: "Mockingbird",
-      url: "https://github.com/birdrides/mockingbird.git",
-      .upToNextMinor(from: "0.19.0")),
+      url: "https://github.com/thehaystackapp/mockingbird.git",
+      .upToNextMinor(from: "0.26.0")),
   ],
   targets: [
     .target(

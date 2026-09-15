@@ -548,10 +548,10 @@
 /* Begin XCRemoteSwiftPackageReference section */
 		2803D9652777FBDE00651C60 /* XCRemoteSwiftPackageReference "mockingbird" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/birdrides/mockingbird";
+			repositoryURL = "https://github.com/thehaystackapp/mockingbird";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 0.19.0;
+				minimumVersion = 0.26.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
