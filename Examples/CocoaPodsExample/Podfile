@@ -1,9 +1,0 @@
-platform :ios, '15.0'
-
-target 'CocoaPodsExample' do
-  use_frameworks!
-  target 'CocoaPodsExampleTests' do
-    inherit! :search_paths
-    pod 'MockingbirdFramework', '~> 0.19'
-  end
-end

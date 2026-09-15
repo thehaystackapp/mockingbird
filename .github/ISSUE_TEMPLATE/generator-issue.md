@@ -33,7 +33,7 @@ If needed, provide a short description of how it should work.
 
 * Mockingbird CLI version (`mockingbird version`)
 * Xcode and Swift version (`swift --version`)
-* Package manager (CocoaPods, Carthage, SPM project, SPM package)
+* Package manager (Carthage, SPM project, SPM package)
 * Unit testing framework (XCTest, Quick/Nimble)
 * Custom configuration
   - [ ] Mockingbird ignore files

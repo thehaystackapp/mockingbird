@@ -78,7 +78,6 @@
 		286DE645277EAE2D0047B0F3 /* MockingbirdCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 285C8DF72779E2D200DE525A /* MockingbirdCommon.framework */; };
 		286DE64B277EB0240047B0F3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 286DE64A277EB0240047B0F3 /* Info.plist */; };
 		286DE64C277EB78C0047B0F3 /* Carthage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E12277AD56F00DE525A /* Carthage.swift */; };
-		286DE64D277EB78C0047B0F3 /* CocoaPods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E14277AD6C700DE525A /* CocoaPods.swift */; };
 		286DE64E277EB78C0047B0F3 /* Codesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E87277C30B700DE525A /* Codesign.swift */; };
 		286DE64F277EB78C0047B0F3 /* InstallNameTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E8D277C677A00DE525A /* InstallNameTool.swift */; };
 		286DE650277EB78C0047B0F3 /* PlistBuddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E8F277C71F800DE525A /* PlistBuddy.swift */; };
@@ -593,7 +592,6 @@
 		285C8E0E277AA34000DE525A /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
 		285C8E10277AA3BD00DE525A /* String+ControlCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ControlCodes.swift"; sourceTree = "<group>"; };
 		285C8E12277AD56F00DE525A /* Carthage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carthage.swift; sourceTree = "<group>"; };
-		285C8E14277AD6C700DE525A /* CocoaPods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CocoaPods.swift; sourceTree = "<group>"; };
 		285C8E16277AD76300DE525A /* SwiftPackage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftPackage.swift; sourceTree = "<group>"; };
 		285C8E18277ADB6600DE525A /* ProcessInfo+ControlCodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProcessInfo+ControlCodes.swift"; sourceTree = "<group>"; };
 		285C8E24277B3B1000DE525A /* mockingbird */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = mockingbird; sourceTree = "<group>"; };
@@ -957,7 +955,6 @@
 		OBJ_69 /* GenerateFileOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateFileOperation.swift; sourceTree = "<group>"; };
 		OBJ_691 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		OBJ_692 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		OBJ_694 /* MockingbirdFramework.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = MockingbirdFramework.podspec; sourceTree = "<group>"; };
 		OBJ_70 /* RenderTemplateOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderTemplateOperation.swift; sourceTree = "<group>"; };
 		OBJ_72 /* InitializerMethodTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitializerMethodTemplate.swift; sourceTree = "<group>"; };
 		OBJ_73 /* MethodTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MethodTemplate.swift; sourceTree = "<group>"; };
@@ -1156,7 +1153,6 @@
 			isa = PBXGroup;
 			children = (
 				285C8E12277AD56F00DE525A /* Carthage.swift */,
-				285C8E14277AD6C700DE525A /* CocoaPods.swift */,
 				285C8E87277C30B700DE525A /* Codesign.swift */,
 				28DBC3EE277EDAF600A6C96F /* DocC.swift */,
 				28FB7EC92789D87800125FDA /* Git.swift */,
@@ -1894,7 +1890,6 @@
 				OBJ_689 /* LICENSE.md */,
 				OBJ_691 /* Cartfile */,
 				285C8E24277B3B1000DE525A /* mockingbird */,
-				OBJ_694 /* MockingbirdFramework.podspec */,
 				285C8E83277BFE2E00DE525A /* .gitignore */,
 				C5115F86A66BC03B1665F801 /* Generated Mocks */,
 				287F852C25195011007D135D /* Frameworks */,
@@ -2463,7 +2458,6 @@
 			buildActionMask = 0;
 			files = (
 				286DE64C277EB78C0047B0F3 /* Carthage.swift in Sources */,
-				286DE64D277EB78C0047B0F3 /* CocoaPods.swift in Sources */,
 				286DE64E277EB78C0047B0F3 /* Codesign.swift in Sources */,
 				28FB7EC82789D0E000125FDA /* Path+Backup.swift in Sources */,
 				28DBC3F0277EDAFC00A6C96F /* DocC.swift in Sources */,

@@ -10,14 +10,12 @@ extension Test {
       commandName: "example",
       abstract: "Run an end-to-end example project test.",
       subcommands: [
-        TestCocoaPods.self,
         TestCarthage.self,
         TestSpmProject.self,
         TestSpmPackage.self,
       ])
     
     enum ExampleProjectType: String, Codable, ExpressibleByArgument {
-      case cocoapods = "cocoapods"
       case carthage = "carthage"
       case spmProject = "spm-project"
       case spmPackage = "spm-package"
@@ -38,47 +36,6 @@ extension Test {
       try files.forEach({ try $0.backup() })
       defer { files.forEach({ try? $0.restore() }) }
       try block()
-    }
-    
-    struct TestCocoaPods: ParsableCommand {
-      static var configuration = CommandConfiguration(
-        commandName: "cocoapods",
-        abstract: "Test the CocoaPods example project.")
-      func run() throws {
-        try Simulator.performInSimulator { uuid in
-          guard let uuid = uuid else {
-            logError("Unable to create simulator")
-            return
-          }
-          
-          let srcroot = Path("Examples/CocoaPodsExample")
-          let workspacePath = srcroot + "CocoaPodsExample.xcworkspace"
-          let podfilePath = srcroot + "Podfile"
-          try backup([podfilePath, srcroot + "Podfile.lock"]) {
-            // Point to the local revision.
-            let rev = try Git.getHEAD(repository: Path.current)
-            let podfileContents = try podfilePath.read()
-              .replacingOccurrences(of: #"pod 'MockingbirdFramework', '~> [\d\.]+'"#,
-                                    with: "pod 'MockingbirdFramework', " +
-                                      ":git => '\(Path.current.absolute())', " +
-                                      ":commit => '\(rev)'",
-                                    options: [.regularExpression])
-            try podfilePath.delete()
-            try podfilePath.write(podfileContents)
-            
-            // Pull and build the framework.
-            try CocoaPods.install(workspace: workspacePath)
-            
-            // Inject the local binary.
-            let binPath = srcroot + "Pods/MockingbirdFramework/bin/\(mockingbirdVersion)"
-            try applyLocallyBuiltCli(binPath: binPath)
-            
-            try XcodeBuild.test(target: .scheme(name: "CocoaPodsExample"),
-                                project: .workspace(path: workspacePath),
-                                destination: .iOSSimulator(deviceUUID: uuid))
-          }
-        }
-      }
     }
     
     struct TestCarthage: ParsableCommand {
