@@ -8,7 +8,6 @@ struct Build: ParsableCommand {
     abstract: "Build a project artifact.",
     subcommands: [
       BuildCli.self,
-      BuildFramework.self,
       BuildDocumentation.self,
       BuildSupportingSources.self,
     ])
@@ -53,5 +52,3 @@ struct Build: ParsableCommand {
                     output: destination)
   }
 }
-
-extension Carthage.Platform: ExpressibleByArgument {}

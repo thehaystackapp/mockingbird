@@ -45,8 +45,6 @@ Mockingbird powers thousands of tests at companies including [Meta](https://meta
 
 ### Getting Started
 
-- <doc:CocoaPods-QuickStart>
-- <doc:Carthage-QuickStart>
 - <doc:SPM-Project-QuickStart>
 - <doc:SPM-Package-QuickStart>
 

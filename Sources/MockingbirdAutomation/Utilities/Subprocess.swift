@@ -46,16 +46,26 @@ public struct Subprocess: CustomStringConvertible {
                   stderrHandler: ((Data) -> Void)? = nil) throws -> Self {
     logInfo(String(describing: self))
     
+    // Readability handlers are invoked on a background queue, so the process can exit before the
+    // final chunk of output is delivered. Track end-of-file on each pipe to drain them fully.
+    let outputDrained = DispatchGroup()
     let readabilityHandler = {
       (pipe: FileHandle, handler: ((Data) -> Void)?, output: UnsafeMutablePointer<FILE>) in
       let data = pipe.availableData
+      guard !data.isEmpty else {
+        pipe.readabilityHandler = nil
+        outputDrained.leave()
+        return
+      }
       handler?(data)
       guard !silent, let line = String(data: data, encoding: .utf8) else { return }
       fputs(line, output)
     }
+    outputDrained.enter()
     stdout.fileHandleForReading.readabilityHandler = { pipe in
       readabilityHandler(pipe, stdoutHandler, Darwin.stdout)
     }
+    outputDrained.enter()
     stderr.fileHandleForReading.readabilityHandler = { pipe in
       readabilityHandler(pipe, stderrHandler, Darwin.stderr)
     }
@@ -76,6 +86,7 @@ public struct Subprocess: CustomStringConvertible {
     sigintSource.resume()
 
     process.waitUntilExit()
+    outputDrained.wait()
     if process.terminationStatus != 0 {
       throw Error.terminated(exitStatus: process.terminationStatus)
     }

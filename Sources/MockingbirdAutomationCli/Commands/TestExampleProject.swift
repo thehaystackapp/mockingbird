@@ -10,15 +10,11 @@ extension Test {
       commandName: "example",
       abstract: "Run an end-to-end example project test.",
       subcommands: [
-        TestCocoaPods.self,
-        TestCarthage.self,
         TestSpmProject.self,
         TestSpmPackage.self,
       ])
     
     enum ExampleProjectType: String, Codable, ExpressibleByArgument {
-      case cocoapods = "cocoapods"
-      case carthage = "carthage"
       case spmProject = "spm-project"
       case spmPackage = "spm-package"
     }
@@ -34,87 +30,20 @@ extension Test {
       try cliLibrariesPath.copy(binPath + cliLibrariesPath.lastComponent)
     }
     
+    /// Package checkouts are named after the last component of the repository URL, so the local
+    /// repository is exposed through a symlink with a stable name that matches the example projects.
+    static func localRepositoryURL() throws -> String {
+      let linkPath = Path("./.build/mockingbird/intermediates/mockingbird")
+      try linkPath.parent().mkpath()
+      try? linkPath.delete()
+      try linkPath.symlink(Path.current.absolute())
+      return "file://" + linkPath.absolute().string
+    }
+    
     static func backup(_ files: [Path], block: () throws -> Void) throws {
       try files.forEach({ try $0.backup() })
       defer { files.forEach({ try? $0.restore() }) }
       try block()
-    }
-    
-    struct TestCocoaPods: ParsableCommand {
-      static var configuration = CommandConfiguration(
-        commandName: "cocoapods",
-        abstract: "Test the CocoaPods example project.")
-      func run() throws {
-        try Simulator.performInSimulator { uuid in
-          guard let uuid = uuid else {
-            logError("Unable to create simulator")
-            return
-          }
-          
-          let srcroot = Path("Examples/CocoaPodsExample")
-          let workspacePath = srcroot + "CocoaPodsExample.xcworkspace"
-          let podfilePath = srcroot + "Podfile"
-          try backup([podfilePath, srcroot + "Podfile.lock"]) {
-            // Point to the local revision.
-            let rev = try Git.getHEAD(repository: Path.current)
-            let podfileContents = try podfilePath.read()
-              .replacingOccurrences(of: #"pod 'MockingbirdFramework', '~> [\d\.]+'"#,
-                                    with: "pod 'MockingbirdFramework', " +
-                                      ":git => '\(Path.current.absolute())', " +
-                                      ":commit => '\(rev)'",
-                                    options: [.regularExpression])
-            try podfilePath.delete()
-            try podfilePath.write(podfileContents)
-            
-            // Pull and build the framework.
-            try CocoaPods.install(workspace: workspacePath)
-            
-            // Inject the local binary.
-            let binPath = srcroot + "Pods/MockingbirdFramework/bin/\(mockingbirdVersion)"
-            try applyLocallyBuiltCli(binPath: binPath)
-            
-            try XcodeBuild.test(target: .scheme(name: "CocoaPodsExample"),
-                                project: .workspace(path: workspacePath),
-                                destination: .iOSSimulator(deviceUUID: uuid))
-          }
-        }
-      }
-    }
-    
-    struct TestCarthage: ParsableCommand {
-      static var configuration = CommandConfiguration(
-        commandName: "carthage",
-        abstract: "Test the Carthage example project.")
-      func run() throws {
-        try Simulator.performInSimulator { uuid in
-          guard let uuid = uuid else {
-            logError("Unable to create simulator")
-            return
-          }
-          
-          let srcroot = Path("Examples/CarthageExample")
-          let cartfilePath = srcroot + "Cartfile"
-          try backup([cartfilePath, srcroot + "Cartfile.resolved"]) {
-            // Point to the local revision.
-            try cartfilePath.write("""
-            git "file://\(Path.current.absolute())" "HEAD"
-            """)
-            
-            // Pull and build the framework.
-            try? (srcroot + "Carthage").delete()
-            let projectPath = srcroot + "CarthageExample.xcodeproj"
-            try Carthage.update(platforms: [.iOS], project: projectPath)
-            
-            // Inject the local binary.
-            let binPath = srcroot + "Carthage/Checkouts/mockingbird/bin/\(mockingbirdVersion)"
-            try applyLocallyBuiltCli(binPath: binPath)
-            
-            try XcodeBuild.test(target: .scheme(name: "CarthageExample"),
-                                project: .project(path: projectPath),
-                                destination: .iOSSimulator(deviceUUID: uuid))
-          }
-        }
-      }
     }
     
     struct TestSpmProject: ParsableCommand {
@@ -127,14 +56,45 @@ extension Test {
             logError("Unable to create simulator")
             return
           }
-          let projectPath = Path("Examples/SPMProjectExample/SPMProjectExample.xcodeproj")
-          let environment = SwiftPackage.PackageConfiguration.libraries.getEnvironment()
-          try XcodeBuild.resolvePackageDependencies(project: .project(path: projectPath),
-                                                    environment: environment)
-          try XcodeBuild.test(target: .scheme(name: "SPMProjectExample"),
-                              project: .project(path: projectPath),
-                              destination: .iOSSimulator(deviceUUID: uuid),
-                              environment: environment)
+          
+          let srcroot = Path("Examples/SPMProjectExample")
+          let projectPath = srcroot + "SPMProjectExample.xcodeproj"
+          let pbxprojPath = projectPath + "project.pbxproj"
+          let resolvedPath = projectPath + "project.xcworkspace/xcshareddata/swiftpm/Package.resolved"
+          try backup([pbxprojPath, resolvedPath]) {
+            // Point to the local revision.
+            let rev = try Git.getHEAD(repository: Path.current)
+            let pbxprojContents = try pbxprojPath.read()
+              .replacingOccurrences(of: #"repositoryURL = "[^"]+";"#,
+                                    with: "repositoryURL = \(doubleQuoted: try localRepositoryURL());",
+                                    options: [.regularExpression])
+              .replacingOccurrences(of: #"requirement = \{\s*kind = upToNextMinorVersion;\s*minimumVersion = [\d\.]+;\s*\};"#,
+                                    with: "requirement = { kind = revision; revision = \(rev); };",
+                                    options: [.regularExpression])
+            try pbxprojPath.delete()
+            try pbxprojPath.write(pbxprojContents)
+            try? resolvedPath.delete()
+            
+            // Pull and build the framework.
+            let derivedDataPath = Path("./.build/mockingbird/intermediates/SPMProjectExample")
+            try? derivedDataPath.delete()
+            let environment = SwiftPackage.PackageConfiguration.libraries.getEnvironment()
+            try XcodeBuild.resolvePackageDependencies(target: .scheme(name: "SPMProjectExample"),
+                                                      project: .project(path: projectPath),
+                                                      derivedDataPath: derivedDataPath,
+                                                      environment: environment)
+            
+            // Inject the local binary.
+            let binPath = derivedDataPath
+              + "SourcePackages/checkouts/mockingbird/bin/\(mockingbirdVersion)"
+            try applyLocallyBuiltCli(binPath: binPath)
+            
+            try XcodeBuild.test(target: .scheme(name: "SPMProjectExample"),
+                                project: .project(path: projectPath),
+                                destination: .iOSSimulator(deviceUUID: uuid),
+                                derivedDataPath: derivedDataPath,
+                                environment: environment)
+          }
         }
       }
     }
@@ -150,8 +110,8 @@ extension Test {
           // Point to the local revision.
           let rev = try Git.getHEAD(repository: Path.current)
           let packageContents = try packagePath.read()
-            .replacingOccurrences(of: "https://github.com/birdrides/mockingbird.git",
-                                  with: Path.current.absolute().string)
+            .replacingOccurrences(of: "https://github.com/thehaystackapp/mockingbird.git",
+                                  with: try localRepositoryURL())
             .replacingOccurrences(of: #"\.upToNextMinor\(from: "[\d\.]+"\)"#,
                                   with: ".revision(\(doubleQuoted: rev))",
                                   options: [.regularExpression])
