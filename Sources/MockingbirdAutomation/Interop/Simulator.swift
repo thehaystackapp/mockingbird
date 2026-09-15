@@ -41,6 +41,21 @@ public enum Simulator {
     return response.runtimes
   }
   
+  /// The iOS SDK version of the selected Xcode, which bounds the simulator runtimes it can use.
+  public static func getSDKVersion(platform: Platform) throws -> Version {
+    let sdk: String = {
+      switch platform {
+      case .iOS: return "iphonesimulator"
+      case .tvOS: return "appletvsimulator"
+      case .watchOS: return "watchsimulator"
+      }
+    }()
+    let (stdout, _) = try Subprocess("xcrun", [
+      "--sdk", sdk, "--show-sdk-version",
+    ]).runWithStringOutput()
+    return Version(shortString: stdout.trimmingCharacters(in: .whitespacesAndNewlines))
+  }
+  
   public static func createSimulator(name: String,
                                      runtime: Runtime,
                                      deviceType: Runtime.DeviceType) throws -> UUID? {
@@ -59,7 +74,11 @@ public enum Simulator {
   public static func performInSimulator(platform: Platform = .iOS,
                                         productFamily: Runtime.DeviceType.ProductFamily = .iPhone,
                                         block: (_ deviceUUID: UUID?) throws -> Void) throws {
-    let availableRuntimes = try listRuntimes(platform: platform).filter({ $0.isAvailable })
+    // Runtimes newer than the selected Xcode's SDK are listed but cannot be used as destinations.
+    let sdkVersion = try getSDKVersion(platform: platform)
+    let availableRuntimes = try listRuntimes(platform: platform)
+      .filter({ $0.isAvailable && Version(shortString: $0.version) <= sdkVersion })
+      .sorted(by: { Version(shortString: $0.version) > Version(shortString: $1.version) })
     guard let runtime = availableRuntimes.first,
           let deviceType = runtime.supportedDeviceTypes
             .first(where: { $0.productFamily == productFamily }),
