@@ -78,6 +78,7 @@
 		286DE64B277EB0240047B0F3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 286DE64A277EB0240047B0F3 /* Info.plist */; };
 		286DE64E277EB78C0047B0F3 /* Codesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E87277C30B700DE525A /* Codesign.swift */; };
 		286DE64F277EB78C0047B0F3 /* InstallNameTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E8D277C677A00DE525A /* InstallNameTool.swift */; };
+		399828D3ABC94569B7CFDD4E /* Otool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88AE12B20CCF4238BABA63FB /* Otool.swift */; };
 		286DE650277EB78C0047B0F3 /* PlistBuddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E8F277C71F800DE525A /* PlistBuddy.swift */; };
 		286DE651277EB78C0047B0F3 /* Simulator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8D842779482400DE525A /* Simulator.swift */; };
 		286DE652277EB78C0047B0F3 /* SwiftPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285C8E16277AD76300DE525A /* SwiftPackage.swift */; };
@@ -598,6 +599,7 @@
 		285C8E87277C30B700DE525A /* Codesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Codesign.swift; sourceTree = "<group>"; };
 		285C8E8B277C670300DE525A /* XcodeSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XcodeSelect.swift; sourceTree = "<group>"; };
 		285C8E8D277C677A00DE525A /* InstallNameTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstallNameTool.swift; sourceTree = "<group>"; };
+		88AE12B20CCF4238BABA63FB /* Otool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Otool.swift; sourceTree = "<group>"; };
 		285C8E8F277C71F800DE525A /* PlistBuddy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistBuddy.swift; sourceTree = "<group>"; };
 		285C8E91277C76DC00DE525A /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		285C8E92277C76DC00DE525A /* update.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = update.sh; sourceTree = "<group>"; };
@@ -1150,6 +1152,7 @@
 				28DBC3EE277EDAF600A6C96F /* DocC.swift */,
 				28FB7EC92789D87800125FDA /* Git.swift */,
 				285C8E8D277C677A00DE525A /* InstallNameTool.swift */,
+				88AE12B20CCF4238BABA63FB /* Otool.swift */,
 				285C8E8F277C71F800DE525A /* PlistBuddy.swift */,
 				285C8D842779482400DE525A /* Simulator.swift */,
 				285C8E16277AD76300DE525A /* SwiftPackage.swift */,
@@ -2451,6 +2454,7 @@
 				28FB7EC82789D0E000125FDA /* Path+Backup.swift in Sources */,
 				28DBC3F0277EDAFC00A6C96F /* DocC.swift in Sources */,
 				286DE64F277EB78C0047B0F3 /* InstallNameTool.swift in Sources */,
+				399828D3ABC94569B7CFDD4E /* Otool.swift in Sources */,
 				286DE650277EB78C0047B0F3 /* PlistBuddy.swift in Sources */,
 				286DE651277EB78C0047B0F3 /* Simulator.swift in Sources */,
 				28FB7ECA2789D87800125FDA /* Git.swift in Sources */,

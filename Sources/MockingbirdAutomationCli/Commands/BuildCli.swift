@@ -29,14 +29,10 @@ extension Build {
       
       // Get rid of toolchain-dependent rpaths which aren't guaranteed to have a compatible version
       // of the internal SwiftSyntax parser lib.
-      let developerDirectory = try XcodeSelect.printPath()
-      let swiftToolchainPath = developerDirectory
-        + "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx"
-      try? InstallNameTool.deleteRpath(swiftToolchainPath.absolute().string, binary: binary)
-      // Swift 5.5 is only present in Xcode 13.2+
-      let swift5_5ToolchainPath = developerDirectory
-        + "Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.5/macosx"
-      try? InstallNameTool.deleteRpath(swift5_5ToolchainPath.absolute().string, binary: binary)
+      let developerDirectory = try XcodeSelect.printPath().absolute().string
+      let toolchainRpaths = try Otool.listRpaths(binary: binary)
+        .filter({ $0.hasPrefix(developerDirectory) })
+      try toolchainRpaths.forEach({ try InstallNameTool.deleteRpath($0, binary: binary) })
       
       // Add new rpaths in descending order of precedence.
       try InstallNameTool.addRpath("/usr/lib/mockingbird/\(version)", binary: binary)
