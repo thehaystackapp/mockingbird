@@ -62,7 +62,7 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
       .package(url: "https://github.com/weichsel/ZIPFoundation.git", exact: "0.9.14"),
     ],
     targets: [
-      .target(name: "MockingbirdCommon", exclude: ["MockingbirdCommon/Info.plist"]),
+      .target(name: "MockingbirdCommon", exclude: ["Info.plist"]),
       .executableTarget(
         name: "MockingbirdCli",
         dependencies: [
@@ -75,6 +75,8 @@ if ProcessInfo.processInfo.environment["MKB_BUILD_EXECUTABLES"] != "1" {
         linkerSettings: [
           .unsafeFlags(["-Xlinker", "-rpath", "-Xlinker", "@executable_path"]),
           .unsafeFlags(["-Xlinker", "-rpath", "-Xlinker", "@executable_path/Libraries"]),
+          // Leave room for the versioned rpaths added by `automation build cli` after linking.
+          .unsafeFlags(["-Xlinker", "-headerpad_max_install_names"]),
         ]),
       .target(
         name: "MockingbirdGenerator",
