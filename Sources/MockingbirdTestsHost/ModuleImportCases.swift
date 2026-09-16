@@ -17,7 +17,7 @@ import CoreFoundation ; import CoreImage
   import CoreMedia
 
 /* Ignore comment before */import CoreVideo
-@testable import CoreVideo // Unique because of attribute
+import CoreVideo // Unique because of attribute
 
 import class CoreFoundation.CFArray
 import enum CoreText.CTFontUIFontType
