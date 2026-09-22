@@ -288,9 +288,9 @@ func createOrderedContext(at sourceLocation: SourceLocation,
     }
   }
   
-  let queue = DispatchQueue(label: "co.bird.mockingbird.verify.inOrder")
-  queue.setSpecific(key: ExpectationGroup.contextKey, value: group)
-  queue.sync { scope() }
+  ExpectationGroup.$localGroup.withValue(group) {
+    scope()
+  }
   
   do {
     try group.verify()

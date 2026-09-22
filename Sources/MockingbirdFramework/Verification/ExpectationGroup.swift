@@ -9,13 +9,15 @@ struct CapturedExpectation {
 
 /// Stores all expectations invoked by verification methods within a scoped context.
 class ExpectationGroup {
-  static let contextKey = DispatchSpecificKey<ExpectationGroup>()
+  
+  @TaskLocal
+  static var localGroup: ExpectationGroup?
   
   private(set) weak var parent: ExpectationGroup?
   private let verificationBlock: (ExpectationGroup) throws -> Void
   
   init(_ verificationBlock: @escaping (ExpectationGroup) throws -> Void) {
-    self.parent = DispatchQueue.currentExpectationGroup
+    self.parent = ExpectationGroup.localGroup
     self.verificationBlock = verificationBlock
   }
   
@@ -50,11 +52,5 @@ class ExpectationGroup {
     return expectations.count + subgroups.reduce(into: 0) { count, subgroup in
       count += subgroup.countExpectations()
     }
-  }
-}
-
-extension DispatchQueue {
-  class var currentExpectationGroup: ExpectationGroup? {
-    return DispatchQueue.getSpecific(key: ExpectationGroup.contextKey)
   }
 }

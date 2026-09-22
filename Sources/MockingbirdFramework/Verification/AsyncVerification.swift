@@ -54,10 +54,43 @@ public extension NSObject {
     createAsyncContext(expectation: expectation, block: block)
     return TestExpectation.create(from: expectation)
   }
+  
+  /// Create a deferrable test expectation from a block containing async verification calls.
+  ///
+  /// Mocked methods that are invoked asynchronously can be verified using an `eventually` block
+  /// which creates an `XCTestExpectation` and attaches it to the current `XCTestCase`.
+  ///
+  /// ```swift
+  /// Task {
+  ///   await Tree(with: bird).shake()
+  /// }
+  ///
+  /// await fulfillment(of: [eventually {
+  ///   verify(await bird.fly()).wasCalled()
+  ///   verify(await bird.chirp()).wasCalled()
+  /// }], timeout: 1)
+  /// ```
+  ///
+  /// - Parameters:
+  ///   - description: An optional description for the test expectation.
+  ///   - block: An async block containing verification calls.
+  /// - Returns: An XCTestExpectation that fulfilles once all verifications in the block are met.
+  @discardableResult
+  func eventually(_ description: String = "Async verification group",
+                  _ block: () async -> Void) async -> TestExpectation {
+    let expectation: XCTestExpectation = {
+      guard let testCase = self as? XCTestCase else {
+        return XCTestExpectation(description: description)
+      }
+      return testCase.expectation(description: description)
+    }()
+    await createAsyncContext(expectation: expectation, block: block)
+    return TestExpectation.create(from: expectation)
+  }
 }
 
 /// Internal helper for `eventually` async verification scopes.
-///   1. Creates an attributed `DispatchQueue` scope which collects all verifications.
+///   1. Creates a `TaskLocal` scope which collects all verifications.
 ///   2. Observes invocations on each mock and fulfills the test expectation if there is a match.
 func createAsyncContext(expectation: XCTestExpectation, block scope: () -> Void) {
   let group = ExpectationGroup { group in
@@ -93,9 +126,53 @@ func createAsyncContext(expectation: XCTestExpectation, block scope: () -> Void)
     })
   }
 
-  let queue = DispatchQueue(label: "co.bird.mockingbird.verify.eventually")
-  queue.setSpecific(key: ExpectationGroup.contextKey, value: group)
-  queue.sync { scope() }
+  ExpectationGroup.$localGroup.withValue(group) {
+    scope()
+  }
+
+  try? group.verify()
+}
+
+/// Internal helper for `eventually` async verification scopes.
+///   1. Creates a `TaskLocal` scope which collects all verifications.
+///   2. Observes invocations on each mock and fulfills the test expectation if there is a match.
+func createAsyncContext(expectation: XCTestExpectation, block scope: () async -> Void) async {
+  let group = ExpectationGroup { group in
+    expectation.expectedFulfillmentCount = group.countExpectations()
+
+    group.expectations.forEach({ capturedExpectation in
+      let observer = InvocationObserver({ (invocation, mockingContext) -> Bool in
+        do {
+          try expect(mockingContext,
+                     handled: capturedExpectation.invocation,
+                     using: capturedExpectation.expectation)
+          expectation.fulfill()
+          return true
+        } catch {
+          return false
+        }
+      })
+      capturedExpectation.mockingContext
+        .addObserver(observer, for: capturedExpectation.invocation.selectorName)
+    })
+
+    group.subgroups.forEach({ subgroup in
+      let observer = InvocationObserver({ (invocation, mockingContext) -> Bool in
+        do {
+          try subgroup.verify()
+          expectation.fulfill()
+          return true
+        } catch {
+          return false
+        }
+      })
+      subgroup.expectations.forEach({ $0.mockingContext.addObserver(observer) })
+    })
+  }
+
+  await ExpectationGroup.$localGroup.withValue(group) {
+    await scope()
+  }
 
   try? group.verify()
 }

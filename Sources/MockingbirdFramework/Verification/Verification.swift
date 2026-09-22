@@ -136,7 +136,7 @@ public class VerificationManager<InvocationType, ReturnType> {
   func verify(using countMatcher: CountMatcher, for sourceLocation: SourceLocation) {
     let expectation = Expectation(countMatcher: countMatcher,
                                   sourceLocation: sourceLocation,
-                                  group: DispatchQueue.currentExpectationGroup)
+                                  group: ExpectationGroup.localGroup)
     do {
       try expect(context.mocking, handled: invocation, using: expectation)
     } catch {
